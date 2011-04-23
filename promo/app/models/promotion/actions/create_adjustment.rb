@@ -14,7 +14,7 @@ class Promotion::Actions::CreateAdjustment < PromotionAction
       amount = order.item_total if amount > order.item_total
       order.adjustments.promotion.reload.clear unless promotion.combine? and order.adjustments.promotion.all? { |credit| credit.originator.promotion.combine? }
       order.update!
-      create_adjustment("#{I18n.t(:promotion)} (#{promotion.code})", order, order)
+      create_adjustment("#{I18n.t(:promotion)} (#{promotion.name})", order, order)
     end
   end
 
