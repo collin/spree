@@ -46,7 +46,7 @@ module SpreePromo
         after_filter :store_visited_path
         def store_visited_path
           session[:visited_paths] ||= []
-          session[:visited_paths] = (session[:visited_paths]  + [params[:path]]).uniq
+          session[:visited_paths] = (session[:visited_paths]  + [params[:path]]).compact.uniq
         end
       end
 

@@ -106,3 +106,34 @@ Feature: Order's total
     Then I should see "Free Shipping"
     And the existing order should have total at "42"
 
+  @selenium @focus
+  Scenario: An automatic promotion requiring a landing page to be visited
+    When I go to the sign in page
+    And I sign in as "admin@person.com/password"
+    When I go to admin promotions page
+    And I follow "New Promotion"
+
+    And I fill in "Name" with "Deal"
+    And I select "Order contents changed" from "Event"
+    And I press "Create"
+    Then I should see "Editing Promotion"
+
+    When I select "Landing Page" from "Add rule of type"
+    And I press "Add" within "#rule_fields"
+    And I fill in "Path" with "cvv"
+    And I press "Update" within "#rule_fields"
+
+    When I select "Create adjustment" from "Add action of type"
+    And I press "Add" within "#action_fields"
+    And I select "Flat Rate (per order)" from "Calculator"
+    And I press "Update" within "#actions_container"
+    And I fill in "Amount" with "4" within ".calculator-fields"
+    And I press "Update" within "#actions_container"
+
+    When I add a product with name: "RoR Mug", price: "40" to cart
+    Then the existing order should have total at "40"
+
+    When I go to "/cvv"
+    And I add a product with name: "RoR Mug", price: "40" to cart
+    Then the existing order should have total at "76"
+
