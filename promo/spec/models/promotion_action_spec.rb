@@ -4,7 +4,7 @@ describe PromotionAction do
   before(:all) do
     class MyAction < PromotionAction
       def self.unregister
-        @@action_classes.delete(self)
+        @@registered_classes.delete(self)
       end
     end
   end
