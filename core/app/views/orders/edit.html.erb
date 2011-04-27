@@ -44,8 +44,3 @@
 
 <% end %>
 
-<ul>
-  <% for adjustment in @order.adjustments %>
-    <li><%= adjustment.label %> - <%= adjustment.amount %> - <%= adjustment.eligible? ? 'Eligible' : 'Not eligible' %></li>
-  <% end %>
-</ul>
