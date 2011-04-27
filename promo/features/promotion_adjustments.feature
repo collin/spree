@@ -1,17 +1,13 @@
-Feature: Order's total
+Feature: Promotions which add adjustments to orders
 
   Background:
     Given I have an admin account of "admin@person.com/password"
     Given a payment method exists
     Given a shipping method exists
 
-
   @selenium
   Scenario: A coupon promotion with flat rate discount
-    When I go to the sign in page
-    And I sign in as "admin@person.com/password"
-    And I go to admin promotions page
-    When I follow "New Promotion"
+    When I log in as an admin user and go to the new promotion form
     And I fill in "Name" with "Order's total > $30"
     And I fill in "Usage Limit" with "100"
     And I select "Coupon code added" from "Event"
@@ -42,10 +38,7 @@ Feature: Order's total
 
   @selenium
   Scenario: An automatic promotion with flat percent discount
-    When I go to the sign in page
-    And I sign in as "admin@person.com/password"
-    And I go to admin promotions page
-    When I follow "New Promotion"
+    When I log in as an admin user and go to the new promotion form
     And I fill in "Name" with "Order's total > $30"
     And I fill in "Code" with ""
     And I select "Order contents changed" from "Event"
@@ -74,10 +67,7 @@ Feature: Order's total
 
   @selenium
   Scenario: An automatic promotion with free shipping
-    When I go to the sign in page
-    And I sign in as "admin@person.com/password"
-    When I go to admin promotions page
-    And I follow "New Promotion"
+    When I log in as an admin user and go to the new promotion form
     And I fill in "Name" with "Free Shipping"
     And I fill in "Code" with ""
     And I press "Create"
@@ -108,11 +98,7 @@ Feature: Order's total
 
   @selenium
   Scenario: An automatic promotion requiring a landing page to be visited
-    When I go to the sign in page
-    And I sign in as "admin@person.com/password"
-    When I go to admin promotions page
-    And I follow "New Promotion"
-
+    When I log in as an admin user and go to the new promotion form
     And I fill in "Name" with "Deal"
     And I select "Order contents changed" from "Event"
     And I press "Create"
@@ -139,12 +125,7 @@ Feature: Order's total
 
   @selenium
   Scenario: Ceasing to be eligible for a promotion with item total rule then becoming eligible again
-
-    When I go to the sign in page
-    And I sign in as "admin@person.com/password"
-    When I go to admin promotions page
-    And I follow "New Promotion"
-
+    When I log in as an admin user and go to the new promotion form
     And I fill in "Name" with "Spend over $50 and save $5"
     And I select "Order contents changed" from "Event"
     And I press "Create"
