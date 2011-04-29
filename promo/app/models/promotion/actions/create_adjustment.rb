@@ -18,8 +18,9 @@ class Promotion::Actions::CreateAdjustment < PromotionAction
     end
   end
 
+  # Ensure a negative amount which does not exceed the sum of the order's item_total and ship_total
   def compute_amount(calculable)
-    super.abs * -1
+    [(calculable.item_total + calculable.ship_total), super.to_f.abs].min * -1
   end
 
   delegate :eligible?, :to => :promotion
