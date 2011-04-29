@@ -3,17 +3,14 @@ class Promotion < Activator
 
   MATCH_POLICIES = %w(all any)
 
-  preference :combine, :boolean, :default => false
   preference :usage_limit, :integer
   preference :match_policy, :string, :default => MATCH_POLICIES.first
   preference :code, :string
 
-  [:combine, :usage_limit, :match_policy, :code].each do |field|
+  [:usage_limit, :match_policy, :code].each do |field|
     alias_method field, "preferred_#{field}"
     alias_method "#{field}=", "preferred_#{field}="
   end
-
-  alias_method :combine?, :preferred_combine
 
   has_many :promotion_rules, :foreign_key => 'activator_id', :autosave => true
   alias_method :rules, :promotion_rules
