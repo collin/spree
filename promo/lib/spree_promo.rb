@@ -18,7 +18,7 @@ module SpreePromo
           rules_with_matching_product_groups = product_groups.map(&:promotion_rules).flatten
           all_rules = promotion_rules + rules_with_matching_product_groups
           promotion_ids = all_rules.map(&:activator_id).uniq
-          Promotion.public.where(:id => promotion_ids)
+          Promotion.advertised.where(:id => promotion_ids)
         end
       end
 

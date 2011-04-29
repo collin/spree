@@ -6,9 +6,9 @@ class Promotion < Activator
   preference :usage_limit, :integer
   preference :match_policy, :string, :default => MATCH_POLICIES.first
   preference :code, :string
-  preference :public, :boolean, :default => false
+  preference :advertise, :boolean, :default => false
 
-  [:usage_limit, :match_policy, :code, :public].each do |field|
+  [:usage_limit, :match_policy, :code, :advertise].each do |field|
     alias_method field, "preferred_#{field}"
     alias_method "#{field}=", "preferred_#{field}="
   end
@@ -31,7 +31,7 @@ class Promotion < Activator
   validates :name, :presence => true
   validates :preferred_code, :presence => true, :if => lambda{|r| r.event_name == 'spree.checkout.coupon_code_added' }
 
-  scope :public, includes(:stored_preferences).where("`preferences`.name == 'public' AND `preferences`.value == '1'")
+  scope :advertised, includes(:stored_preferences).where("`preferences`.name == 'public' AND `preferences`.value == '1'")
 
   # TODO: Remove that after fix for https://rails.lighthouseapp.com/projects/8994/tickets/4329-has_many-through-association-does-not-link-models-on-association-save
   # is provided

@@ -11,6 +11,7 @@ en:
         expires_at: "Expires at"
   add_action_of_type: Add action of type
   add_rule_of_type: Add rule of type
+  advertise: Advertise
   coupon: Coupon
   coupon_code: Coupon code
   editing_promotion: Editing Promotion
