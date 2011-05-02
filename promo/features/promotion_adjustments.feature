@@ -161,3 +161,40 @@ Feature: Promotions which add adjustments to orders
     When I update the quantity on the first cart item to "3"
     Then the existing order should have total at "55"
 
+  @selenium
+  Scenario: Only counting the most valuable promotion adjustment in an order
+
+    When I log in as an admin user and go to the new promotion form
+    And I fill in "Name" with "$5 off"
+    And I select "Order contents changed" from "Event"
+    And I press "Create"
+    Then I should see "Editing Promotion"
+    When I select "Create adjustment" from "Add action of type"
+    And I press "Add" within "#action_fields"
+    And I select "Flat Rate (per order)" from "Calculator"
+    And I press "Update" within "#actions_container"
+    And I fill in "Amount" with "5" within ".calculator-fields"
+    And I press "Update" within "#actions_container"
+
+    When I go to admin promotions page
+    When I follow "New Promotion"
+    And I fill in "Name" with "%10 off"
+    And I select "Order contents changed" from "Event"
+    And I press "Create"
+    Then I should see "Editing Promotion"
+    When I select "Create adjustment" from "Add action of type"
+    And I press "Add" within "#action_fields"
+    And I select "Flat Percent" from "Calculator"
+    And I press "Update" within "#actions_container"
+    And I fill in "Flat Percent" with "10" within ".calculator-fields"
+    And I press "Update" within "#actions_container"
+
+    When I add a product with name: "RoR Mug", price: "20" to cart
+    Then the existing order should have total at "15"
+    And the existing order should have 2 promotion credits
+
+    When I update the quantity on the first cart item to "2"
+    Then the existing order should have total at "35"
+
+    When I update the quantity on the first cart item to "3"
+    Then the existing order should have total at "54"

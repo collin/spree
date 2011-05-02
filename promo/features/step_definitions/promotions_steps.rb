@@ -13,7 +13,7 @@ Then /^the existing order should not have any promotion credits$/ do
   Order.first.adjustments.promotion.count.should == 0
 end
 
-Then /^the existing order should have (\d+) promotion credit$/ do |count|
+Then /^the existing order should have (\d+) promotion credits?$/ do |count|
   Order.first.adjustments.promotion.count.should == count.to_i
 end
 
