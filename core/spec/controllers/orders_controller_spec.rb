@@ -2,8 +2,12 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe OrdersController do
 
-  let(:order) { mock_model(Order, :number => "R123", :reload => nil, :save! => true) }
-  before { Order.stub(:find).with(1).and_return(order) }
+  let(:order) { mock_model(Order, :number => "R123", :reload => nil, :save! => true, :coupon_code= => nil, :coupon_code => nil) }
+
+  before do
+    Order.stub(:find).with(1).and_return(order)
+    controller.stub :current_user => nil
+  end
 
   context "#populate" do
     before { Order.stub(:new).and_return(order) }
