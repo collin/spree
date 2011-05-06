@@ -2,10 +2,12 @@
 if RUBY_VERSION.to_f >= 1.9
 
   class String
-    def mb_chars
-      self.force_encoding(Encoding::UTF_8)
-    end
-    
+    # This is pretty much retarded.
+    # Also breaks entirely on frozen strings.
+    # def mb_chars
+    #   self.force_encoding(Encoding::UTF_8)
+    # end
+
     alias_method(:orig_concat, :concat)
     def concat(value)
       orig_concat value.force_encoding(Encoding::UTF_8)
